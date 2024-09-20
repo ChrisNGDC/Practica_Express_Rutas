@@ -37,7 +37,7 @@ app.get('/api/lenguajes', (req, res) => {
         )
         const filtrado = filtradoFrontend.concat(filtradoBackend);
         if (!filtrado) {
-            return res.status(404).send(`No se encontró el curso con cantidad de alumnos mayor o igual a: ${cantidadAlumnos}`)
+            return res.status(404).send(`No se encontraron cursos con cantidad de alumnos mayor o igual a: ${cantidadAlumnos}`)
         }
         res.status(200).send(JSON.stringify(filtrado));
     } else {
@@ -84,7 +84,7 @@ app.get('/api/lenguajes/:technology', (req, res) => {
     }
 
     if (!filtrado) {
-        return res.status(404).send(`No se encontró el curso con los parametros dados.`)
+        return res.status(404).send(`No se encontró cursos con los parametros dados.`)
     }
     res.status(200).send(JSON.stringify(filtrado));
 })
