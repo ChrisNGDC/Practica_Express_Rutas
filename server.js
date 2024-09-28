@@ -150,7 +150,7 @@ app.get('/api/lenguajes/frontend/cantidadAlumnos/:cantidad', (req, res) => {
     )
 
     if (!filtrado) {
-        return res.status(404).send(`No se encontró cursos con cantidad de alumnos igual o mayor a "${lenguaje}".`)
+        return res.status(404).send(`No se encontró cursos con cantidad de alumnos igual o mayor a "${cantidad}".`)
     }
     res.status(200).send(JSON.stringify(filtrado));
 })
@@ -197,7 +197,7 @@ app.get('/api/lenguajes/backend/cantidadAlumnos/:cantidad', (req, res) => {
     )
 
     if (!filtrado) {
-        return res.status(404).send(`No se encontró cursos con cantidad de alumnos igual o mayor a "${lenguaje}".`)
+        return res.status(404).send(`No se encontró cursos con cantidad de alumnos igual o mayor a "${cantidad}".`)
     }
     res.status(200).send(JSON.stringify(filtrado));
 })
