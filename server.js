@@ -22,7 +22,7 @@ app.get('/api', (req, res) => {
     res.send('<h1> ENTRANDO EN /API</h1>')
 })
 
-//  LENGUAJES
+//  LENGUAJES QUERY PARAMS
 
 app.get('/api/lenguajes', (req, res) => {
     res.setHeader('Content-Type', 'text/plain');
@@ -45,7 +45,26 @@ app.get('/api/lenguajes', (req, res) => {
     }
 })
 
-//  FRONTEND AND BACKEND
+// LENGUAJES URL PARAMS
+
+app.get('/api/lenguajes/:cantAlumnos', (req, res) => {
+    res.setHeader('Content-Type', 'text/plain');
+    const cantidadAlumnos = req.params.cantAlumnos;
+
+    const filtradoBackend = infoLenguajes.backend.filter(
+        lenguajes => lenguajes.cantidadAlumnos >= Number(cantidadAlumnos)
+    )
+    const filtradoFrontend = infoLenguajes.frontend.filter(
+        lenguajes => lenguajes.cantidadAlumnos >= Number(cantidadAlumnos)
+    )
+    const filtrado = filtradoFrontend.concat(filtradoBackend);
+    if (!filtrado) {
+        return res.status(404).send(`No se encontraron cursos con cantidad de alumnos mayor o igual a: ${cantidadAlumnos}`)
+    }
+    res.status(200).send(JSON.stringify(filtrado));
+})
+
+//  FRONTEND AND BACKEND QUERY PARAMS
 
 app.get('/api/lenguajes/:technology', (req, res) => {
     res.setHeader('Content-Type', 'text/plain');
@@ -85,6 +104,100 @@ app.get('/api/lenguajes/:technology', (req, res) => {
 
     if (!filtrado) {
         return res.status(404).send(`No se encontró cursos con los parametros dados.`)
+    }
+    res.status(200).send(JSON.stringify(filtrado));
+})
+
+//  FRONTEND URL PARAMS
+
+app.get('/api/lenguajes/frontend/nombre/:lenguaje', (req, res) => {
+    res.setHeader('Content-Type', 'text/plain');
+    const lenguaje = req.params.lenguaje;
+    let filtrado = infoLenguajes.frontend;
+
+    filtrado = filtrado.filter(
+        lenguajes => lenguajes.nombre.toLocaleLowerCase() == lenguaje.toLocaleLowerCase()
+    )
+
+    if (!filtrado) {
+        return res.status(404).send(`No se encontró cursos con el lenguaje "${lenguaje}".`)
+    }
+    res.status(200).send(JSON.stringify(filtrado));
+})
+
+app.get('/api/lenguajes/frontend/turno/:turno', (req, res) => {
+    res.setHeader('Content-Type', 'text/plain');
+    const turno = req.params.turno;
+    let filtrado = infoLenguajes.frontend;
+
+    filtrado = filtrado.filter(
+        lenguajes => lenguajes.turno.toLocaleLowerCase() == turno.toLocaleLowerCase()
+    )
+
+    if (!filtrado) {
+        return res.status(404).send(`No se encontró cursos con el turno "${turno}".`)
+    }
+    res.status(200).send(JSON.stringify(filtrado));
+})
+
+app.get('/api/lenguajes/frontend/cantidadAlumnos/:cantidad', (req, res) => {
+    res.setHeader('Content-Type', 'text/plain');
+    const cantidad = req.params.cantidad;
+    let filtrado = infoLenguajes.frontend;
+
+    filtrado = filtrado.filter(
+        lenguajes => lenguajes.cantidad == Number(cantidad)
+    )
+
+    if (!filtrado) {
+        return res.status(404).send(`No se encontró cursos con cantidad de alumnos igual o mayor a "${lenguaje}".`)
+    }
+    res.status(200).send(JSON.stringify(filtrado));
+})
+
+//  BACKEND URL PARAMS
+
+app.get('/api/lenguajes/backend/nombre/:lenguaje', (req, res) => {
+    res.setHeader('Content-Type', 'text/plain');
+    const lenguaje = req.params.lenguaje;
+    let filtrado = infoLenguajes.backend;
+
+    filtrado = filtrado.filter(
+        lenguajes => lenguajes.nombre.toLocaleLowerCase() == lenguaje.toLocaleLowerCase()
+    )
+
+    if (!filtrado) {
+        return res.status(404).send(`No se encontró cursos con el lenguaje "${lenguaje}".`)
+    }
+    res.status(200).send(JSON.stringify(filtrado));
+})
+
+app.get('/api/lenguajes/backend/turno/:turno', (req, res) => {
+    res.setHeader('Content-Type', 'text/plain');
+    const turno = req.params.turno;
+    let filtrado = infoLenguajes.backend;
+
+    filtrado = filtrado.filter(
+        lenguajes => lenguajes.turno.toLocaleLowerCase() == turno.toLocaleLowerCase()
+    )
+
+    if (!filtrado) {
+        return res.status(404).send(`No se encontró cursos con el turno "${turno}".`)
+    }
+    res.status(200).send(JSON.stringify(filtrado));
+})
+
+app.get('/api/lenguajes/backend/cantidadAlumnos/:cantidad', (req, res) => {
+    res.setHeader('Content-Type', 'text/plain');
+    const cantidad = req.params.cantidad;
+    let filtrado = infoLenguajes.backend;
+
+    filtrado = filtrado.filter(
+        lenguajes => lenguajes.cantidad == Number(cantidad)
+    )
+
+    if (!filtrado) {
+        return res.status(404).send(`No se encontró cursos con cantidad de alumnos igual o mayor a "${lenguaje}".`)
     }
     res.status(200).send(JSON.stringify(filtrado));
 })
